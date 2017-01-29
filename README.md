@@ -7,3 +7,5 @@
 `!qytpl <url>`: Starts playing a YouTube Playlist (enqueues first song like `!qyt`).
    
 `!ytpldl <url>`: Downloads a YouTube Playlist without playing it.
+
+`!ytpl stop`: Stops Playback/Download.
