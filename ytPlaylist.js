@@ -1,9 +1,9 @@
 registerPlugin({
-    name: 'YouTube Playlist',
-    version: '1.0.0',
-    description: 'Enables the playback of YouTube playlists with !ytpl',
-    author: 'Irame',
-    vars: {
+	name: 'YouTube Playlist',
+	version: '1.0.0',
+	description: 'Enables the playback of YouTube playlists with !ytpl',
+	author: 'Irame',
+	vars: {
 		apiKey: {
 			title: 'API KEY (https://console.developers.google.com/project)',
 			type: 'string'
@@ -17,34 +17,34 @@ registerPlugin({
 	var youtubeUrlPlaylistRegex = /list=([a-zA-Z0-9_-]*)/;
 	
 	if (!String.prototype.format) {
-        String.prototype.format = function() {
-            var str = this.toString();
-            if (!arguments.length) {
-                return str;
-            }
-            var args = typeof arguments[0],
-                args = (("string" == args || "number" == args) ? arguments : arguments[0]);
-            for (arg in args) {
-                str = str.replace(RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
-            }
-            return str;
-        }
-    }
+		String.prototype.format = function() {
+			var str = this.toString();
+			if (!arguments.length) {
+				return str;
+			}
+			var args = typeof arguments[0],
+				args = (("string" == args || "number" == args) ? arguments : arguments[0]);
+			for (arg in args) {
+				str = str.replace(RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
+			}
+			return str;
+		}
+	}
 	
-    function send_msg(msg, ev) {
+	function send_msg(msg, ev) {
 		var mode = (typeof ev !== 'undefined') ? ev.mode : 2;
-        switch (mode) {
-            case 1:
-                sinusbot.chatPrivate(ev.clientId, msg);
-                break;
-            case 2:
-                sinusbot.chatChannel(msg);
-                break;
-            default:
-                sinusbot.chatServer(msg);
-                break;
-        }
-    }
+		switch (mode) {
+			case 1:
+				sinusbot.chatPrivate(ev.clientId, msg);
+				break;
+			case 2:
+				sinusbot.chatChannel(msg);
+				break;
+			default:
+				sinusbot.chatServer(msg);
+				break;
+		}
+	}
 	
 	function setMode(mode) {
 		if (mode) {
@@ -130,7 +130,7 @@ registerPlugin({
 						&& item.contentDetails 
 						&& !(item.contentDetails.regionRestriction 
 							&& item.contentDetails.regionRestriction.blocked 
-						    && ("DE" in item.contentDetails.regionRestriction.blocked)))
+							&& ("DE" in item.contentDetails.regionRestriction.blocked)))
 					{
 						setCurrentTitle(item.snippet.title);
 						playVideoById(item.id);
@@ -145,15 +145,15 @@ registerPlugin({
 	
 	function requestVideo(videoId) {
 		sinusbot.http({
-            method: "GET",
-            url: videosRequestUrlPattern.format({
-                api_key: config.apiKey,
+			method: "GET",
+			url: videosRequestUrlPattern.format({
+				api_key: config.apiKey,
 				video_id: videoId
-            }),
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-            }
-        }, processVideoReqeust);
+			}),
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8"
+			}
+		}, processVideoReqeust);
 	}
 	
 	function processPlaylistRequest(err, res) {
@@ -195,16 +195,16 @@ registerPlugin({
 	function requestPlaylistVideoByPage(playlistId, pageToken) {
 		if (!pageToken) pageToken = "";
 		sinusbot.http({
-            method: "GET",
-            url: playlistRequestUrlPattern.format({
-                api_key: config.apiKey,
+			method: "GET",
+			url: playlistRequestUrlPattern.format({
+				api_key: config.apiKey,
 				playlist_id: playlistId,
 				page_token: pageToken
-            }),
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-            }
-        }, processPlaylistRequest);
+			}),
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8"
+			}
+		}, processPlaylistRequest);
 	}
 	
 	function requestNextPlaylistVideo() {
@@ -238,6 +238,7 @@ registerPlugin({
 			default:
 				return;
 		}
+		
 		if (args[1] == "stop") {
 			setCurrentPlaylist();
 		} else {
